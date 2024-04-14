@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        #all {
+            text-align: center;
+        }
+
+        #ctr {
+            height: 50px;
+            line-height: 50px;
+        }
+
+        #box {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            background-color: rgb(0, 0, 0);
+            display: inline-block;
+        }
+
+        .rangeValue {
+            width: 50px;
+            font-size: 22px;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        .but {
+            vertical-align: text-bottom;
+        }
+
+        #Red,
+        #Green,
+        #Blue {
+            font-size: 24px;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="all">
+
+        <!-- 顏色顯示區 -->
+        <div id="box"></div>
+
+        <!-- Red 區塊 -->
+        <div id="ctr">
+            <span id="Red">R</span>
+            <input type="range" value="0" min="0" max="255" step="1" id="r_red" class="range A">
+            <!-- <span id="rV_red" class="rangeValue">0</span> -->
+            <span id="r_red" class="rangeValue A">0</span>
+            <!-- <input type="button" id="but_Red" value="隨機" class="but"> -->
+            <input type="button" id="r_red" value="隨機" class="but A">
+
+        </div>
+
+        <!-- Green 區塊 -->
+        <div id="ctr">
+            <span id="Green">G</span>
+            <input type="range" value="0" min="0" max="255" step="1" id="r_gre" class="range B">
+            <!-- <span id="rV_gre" class="rangeValue">0</span> -->
+            <span id="r_gre" class="rangeValue B">0</span>
+            <!-- <input type="button" id="but_gre" value="隨機" class="but"> -->
+            <input type="button" id="r_gre" value="隨機" class="but B">
+
+        </div>
+
+        <!-- Blue 區塊 -->
+        <div id="ctr">
+            <span id="Blue">B</span>
+            <input type="range" value="0" min="0" max="255" step="1" id="r_blu" class="range C">
+            <!-- <span id="rV_blu" class="rangeValue">0</span> -->
+            <span id="r_blu" class="rangeValue C">0</span>
+            <!-- <input type="button" id="but_blu" value="隨機" class="but"> -->
+            <input type="button" id="r_blu" value="隨機" class="but C">
+
+        </div>
+    </div>
+
+
+
+    <script>
+
+        const range = document.getElementsByClassName('range')
+        const rangeValue = document.getElementsByClassName('rangeValue')
+        const but = document.getElementsByClassName('but')
+
+        const r_red = document.getElementById('r_red')
+        const r_gre = document.getElementById('r_gre')
+        const r_blu = document.getElementById('r_blu')
+
+
+
+
+
+        for (let el of but) {
+            el.addEventListener('click', () => {
+                // 隨機數值區間0~255
+                let R = Math.floor(Math.random() * 256)
+                // 抓取按鈕的 id
+                let Bid = el.id
+
+                for (let el of range) {
+                    // 抓取 range 的 id
+                    let Rid = el.id
+                    // 抓取 range 的 value
+                    let RV = el.value
+
+                    if (Bid == Rid) {
+                        RV = R
+                        for (let el of rangeValue) {
+                            // 抓取 rangeValue 的 id
+                            let rVid = el.id
+                            if (rVid == Rid) {
+                                el.innerText = RV
+                                console.log(el.innerText, RV)
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+
+
+
+
+
+
+
+
+
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         // 抓取按鈕的 id
+        //         let Bid = el.id
+        //         let Bcl = el.class
+        //         console.log(el)
+        //         if (Bid == 'r_red') {
+        //             r_red.value = R
+        //             console.log(r_red.value, R)
+        //         } else if (Bid == 'r_gre') {
+        //             r_gre.value = R
+        //             console.log(r_gre.value, R)
+        //         } else if (Bid == 'r_blu') {
+        //             r_blu.value = R
+        //             console.log(r_blu.value, R)
+        //         }
+
+
+
+        //         for (let el of range) {
+        //             el.addEventListener('input', () => {
+
+        //                 // 抓取拉桿的 id
+        //                 let Rid = el.id
+
+        //                 // 抓取拉桿的 value
+        //                 let V = el.value
+        //                 console.log(Rid)
+        //                 console.log(V, R)
+
+
+
+        //                 for (let el of rangeValue) {
+        //                     // 抓取數字的 id
+        //                     let rVid = el.id
+        //                     console.log(rVid)
+        //                     if (rVid == Rid) {
+        //                         el.innerText = V
+        //                         // } else if (rVid == Bid) {
+        //                         //     el.innerText = R
+        //                         //     console.log(el.innerText, R)
+        //                     }
+        //                 }
+        //             })
+        //         }
+        //     })
+        // }
+
+
+
+
+
+
+
+
+
+        // for (let el of range) {
+        //     el.addEventListener('input', (event) => {
+        //         // 抓取拉桿的數值
+        //         let V = event.target.value
+        //         console.log(event.target.id)
+
+        //         // 連動到數字顯示
+        //         for (let el of rangeValue) {
+        //             if (event.target.id == el.id) {
+        //                 el.innerText = V
+        //             }
+        //         }
+        //     })
+        // }
+
+
+        // for (let el of range) {
+        //     el.addEventListener('input', () => {
+
+        //         // 抓取拉桿的 id
+        //         let Rid = el.id
+
+        //         // 抓取拉桿的 value
+        //         let V = el.value
+        //         console.log(Rid)
+        //         console.log(V)
+
+
+
+        //         for (let el of but) {
+        //             el.addEventListener('click', () => {
+        //                 // 隨機數值區間0~255
+        //                 let R = Math.floor(Math.random() * 256)
+        //                 console.log(R)
+        //                 const Bid = el.id
+
+        //             })
+        //         }
+
+
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // but 的 id 數值
+        //         const Bid = el.id
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         console.log(R)
+        //         console.log(Bid)
+        //         if (Bid === 'r_red') {
+        //             r_red.value = R
+        //         } else if (Bid === 'r_gre') {
+        //             r_gre.value = R
+        //         } else if (Bid === 'r_blu') {
+        //             r_blu.value = R
+        //         }
+        //     })
+        // }
+
+
+
+        // 連動到數字顯示
+        // for (let el of rangeValue) {
+        //     // 抓取數字的 id
+        //     let rVid = el.id
+        //     console.log(rVid)
+        //     if (rVid == Rid) {
+        //         el.innerText = V
+        //         console.log(rVid, V)
+        //     } else if (rVid == Bid) {
+        //         el.innerText = V
+        //     }
+        // }
+
+
+        //     })
+        // }
+
+
+
+
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // but 的 id 數值
+        //         let Bid = el.id
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         console.log(R)
+        //         console.log(Bid)
+        //         if (Bid == Rid) {
+        //             for (const element of range) {
+        //                 console.log(element.value)
+        //                 element.value = R
+        //             }
+        //         }
+        //     })
+        // }
+
+
+
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         console.log(R)
+        //         if (el.id == event.target.id) {
+        //             console.log(el.id)
+        //             console.log(event.target.id)
+        //             input.value.innerHTML = R
+        //         }
+        //     })
+        // }
+
+
+
+        // 驗證是否在區間數值↓
+        // for (let i = 0; i <= 255; i++) {
+        //     let R = Math.floor(Math.random() * 256)
+        //     console.log(R)
+        // }
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         console.log(R)
+        //     })
+        // }
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
