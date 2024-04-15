@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
     <style>
         #all {
@@ -62,33 +60,33 @@
         <!-- Red 區塊 -->
         <div id="ctr">
             <span id="Red">R</span>
-            <input type="range" value="0" min="0" max="255" step="1" id="r_red" class="range A">
+            <input type="range" value="0" min="0" max="255" step="1" id="r_red" class="range">
             <!-- <span id="rV_red" class="rangeValue">0</span> -->
-            <span id="r_red" class="rangeValue A">0</span>
+            <span id="r_red" class="rangeValue">0</span>
             <!-- <input type="button" id="but_Red" value="隨機" class="but"> -->
-            <input type="button" id="r_red" value="隨機" class="but A">
+            <input type="button" id="r_red" value="隨機" class="but">
 
         </div>
 
         <!-- Green 區塊 -->
         <div id="ctr">
             <span id="Green">G</span>
-            <input type="range" value="0" min="0" max="255" step="1" id="r_gre" class="range B">
+            <input type="range" value="0" min="0" max="255" step="1" id="r_gre" class="range">
             <!-- <span id="rV_gre" class="rangeValue">0</span> -->
-            <span id="r_gre" class="rangeValue B">0</span>
+            <span id="r_gre" class="rangeValue">0</span>
             <!-- <input type="button" id="but_gre" value="隨機" class="but"> -->
-            <input type="button" id="r_gre" value="隨機" class="but B">
+            <input type="button" id="r_gre" value="隨機" class="but">
 
         </div>
 
         <!-- Blue 區塊 -->
         <div id="ctr">
-            <span id="Blue">B</span>
-            <input type="range" value="0" min="0" max="255" step="1" id="r_blu" class="range C">
-            <!-- <span id="rV_blu" class="rangeValue">0</span> -->
-            <span id="r_blu" class="rangeValue C">0</span>
-            <!-- <input type="button" id="but_blu" value="隨機" class="but"> -->
-            <input type="button" id="r_blu" value="隨機" class="but C">
+        <span id="Blue">B</span>
+        <input type="range" value="0" min="0" max="255" step="1" id="r_blu" class="range">
+        <!-- <span id="rV_blu" class="rangeValue">0</span> -->
+        <span id="r_blu" class="rangeValue">0</span>
+        <!-- <input type="button" id="but_blu" value="隨機" class="but"> -->
+        <input type="button" id="r_blu" value="隨機" class="but">
 
         </div>
     </div>
@@ -109,40 +107,103 @@
 
 
 
-
-
         for (let el of but) {
             el.addEventListener('click', () => {
                 // 隨機數值區間0~255
                 let R = Math.floor(Math.random() * 256)
+                console.log(el.value, R)
                 // 抓取按鈕的 id
                 let Bid = el.id
 
-                for (let el of range) {
-                    // 抓取 range 的 id
-                    let Rid = el.id
-                    // 抓取 range 的 value
-                    let RV = el.value
+                for (let el of rangeValue) {
+                    // 抓取 rangeValue 的 id
+                    let rVid = el.id
+                    if (rVid == Bid) {
+                        el.innerText = R
+                        console.log(rVid, Bid)
+                        console.log('rangeValue取代', rVid, Bid, el.innerText, R)
 
-                    if (Bid == Rid) {
-                        RV = R
-                        for (let el of rangeValue) {
-                            // 抓取 rangeValue 的 id
-                            let rVid = el.id
-                            if (rVid == Rid) {
-                                el.innerText = RV
-                                console.log(el.innerText, RV)
-                            }
-                        }
+                        let r_RV = r_red.value
+                        let g_RV = r_gre.value
+                        let b_RV = r_blu.value
+                        console.log(r_RV, g_RV, b_RV)
+                        box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
+                        console.log(box.style.backgroundColor)
                     }
-                    // box.style.backgroundColor = 'rgb(255, 0, 0)'
-                    box.style.backgroundColor = `rgb${(RV, RV, RV)}`
-                    console.log(box.style.backgroundColor)
+                }
+            })
+        }
+
+        for (let el of range) {
+            el.addEventListener('input', () => {
+                // 抓取 range 的 id
+                let Rid = el.id
+                // 抓取 range 的 value
+                let RV = el.value
+                console.log('原' + Rid, RV)
+
+                for (let el of rangeValue) {
+                    // 抓取 rangeValue 的 id
+                    let rVid = el.id
+                    if (rVid == Rid) {
+                        el.innerText = RV
+                        console.log(rVid, Rid)
+                        console.log('rangeValue取代', el.innerText, RV)
+
+                        let r_RV = r_red.value
+                        let g_RV = r_gre.value
+                        let b_RV = r_blu.value
+                        console.log(r_RV, g_RV, b_RV)
+                        box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
+                        console.log(box.style.backgroundColor)
+                    }
                 }
             })
         }
 
 
+
+
+
+
+
+
+        // for (let el of but) {
+        //     el.addEventListener('click', () => {
+        //         // 隨機數值區間0~255
+        //         let R = Math.floor(Math.random() * 256)
+        //         console.log(el.value, R)
+        //         // 抓取按鈕的 id
+        //         let Bid = el.id
+
+        //         for (let el of range) {
+        //             el.addEventListener('input', () => {
+        //                 // 抓取 range 的 id
+        //                 let Rid = el.id
+        //                 // 抓取 range 的 value
+        //                 let RV = el.value
+        //                 console.log('原' + Rid, RV)
+        //                 if (Rid == Bid) {
+        //                     RV = `${R}`
+        //                     console.log(Rid, Bid, RV, `${R}`)
+
+        //                     for (let el of rangeValue) {
+        //                         // 抓取 rangeValue 的 id
+        //                         let rVid = el.id
+        //                         if (rVid == Rid) {
+        //                             el.innerText = RV
+        //                             console.log(rVid, Rid)
+        //                             console.log('rangeValue取代', el.innerText, RV)
+        //                         }
+        //                     }
+        //                 }
+        //             })
+        //         }
+        //     })
+        // }
+
+        // box.style.backgroundColor = 'rgb(255, 0, 0)'
+        // box.style.backgroundColor = `rgb(${})`
 
 
 
