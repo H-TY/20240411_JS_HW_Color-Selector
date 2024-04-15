@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     <style>
         #all {
@@ -61,33 +63,24 @@
         <div id="ctr">
             <span id="Red">R</span>
             <input type="range" value="0" min="0" max="255" step="1" id="r_red" class="range">
-            <!-- <span id="rV_red" class="rangeValue">0</span> -->
             <span id="r_red" class="rangeValue">0</span>
-            <!-- <input type="button" id="but_Red" value="隨機" class="but"> -->
             <input type="button" id="r_red" value="隨機" class="but">
-
         </div>
 
         <!-- Green 區塊 -->
         <div id="ctr">
             <span id="Green">G</span>
             <input type="range" value="0" min="0" max="255" step="1" id="r_gre" class="range">
-            <!-- <span id="rV_gre" class="rangeValue">0</span> -->
             <span id="r_gre" class="rangeValue">0</span>
-            <!-- <input type="button" id="but_gre" value="隨機" class="but"> -->
             <input type="button" id="r_gre" value="隨機" class="but">
-
         </div>
 
         <!-- Blue 區塊 -->
         <div id="ctr">
-        <span id="Blue">B</span>
-        <input type="range" value="0" min="0" max="255" step="1" id="r_blu" class="range">
-        <!-- <span id="rV_blu" class="rangeValue">0</span> -->
-        <span id="r_blu" class="rangeValue">0</span>
-        <!-- <input type="button" id="but_blu" value="隨機" class="but"> -->
-        <input type="button" id="r_blu" value="隨機" class="but">
-
+            <span id="Blue">B</span>
+            <input type="range" value="0" min="0" max="255" step="1" id="r_blu" class="range">
+            <span id="r_blu" class="rangeValue">0</span>
+            <input type="button" id="r_blu" value="隨機" class="but">
         </div>
     </div>
 
@@ -107,11 +100,14 @@
 
 
 
+
+        // 整理版
+
+        // 隨機按鈕區
         for (let el of but) {
             el.addEventListener('click', () => {
                 // 隨機數值區間0~255
                 let R = Math.floor(Math.random() * 256)
-                console.log(el.value, R)
                 // 抓取按鈕的 id
                 let Bid = el.id
 
@@ -120,54 +116,59 @@
                     let rVid = el.id
                     if (rVid == Bid) {
                         el.innerText = R
-                        console.log(rVid, Bid)
-                        console.log('rangeValue取代', rVid, Bid, el.innerText, R)
 
-                        let r_RV = r_red.value
-                        let g_RV = r_gre.value
-                        let b_RV = r_blu.value
-                        console.log(r_RV, g_RV, b_RV)
-                        box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
-                        console.log(box.style.backgroundColor)
+                        for (let el of range) {
+                            // 抓取 range 的 id
+                            let Rid = el.id
+                            // let RV = el.value
+                            if (Rid == rVid) {
+                                // 不能寫 RV = R，不會取代原 value 的數值，疑似與3/21上課教到的玄學"傳址"有關
+                                el.value = R
+
+                                // RGB的變數 Function
+                                RGB()
+                            }
+                        }
                     }
                 }
             })
         }
 
+
+        // 拉桿控制區
         for (let el of range) {
             el.addEventListener('input', () => {
                 // 抓取 range 的 id
                 let Rid = el.id
                 // 抓取 range 的 value
-                let RV = el.value
-                console.log('原' + Rid, RV)
+                let V = el.value
 
                 for (let el of rangeValue) {
                     // 抓取 rangeValue 的 id
                     let rVid = el.id
                     if (rVid == Rid) {
-                        el.innerText = RV
-                        console.log(rVid, Rid)
-                        console.log('rangeValue取代', el.innerText, RV)
+                        el.innerText = V
 
-                        let r_RV = r_red.value
-                        let g_RV = r_gre.value
-                        let b_RV = r_blu.value
-                        console.log(r_RV, g_RV, b_RV)
-                        box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
-                        console.log(box.style.backgroundColor)
+                        // RGB的變數 Function
+                        RGB()
                     }
                 }
             })
         }
 
+        // RGB的變數 Function
+        let RGB = () => {
+            let r_V = r_red.value
+            let g_V = r_gre.value
+            let b_V = r_blu.value
+            box.style.backgroundColor = `rgb(${r_V}, ${g_V}, ${b_V})`
+        }
 
 
 
 
-
-
-
+        // // OK原版 ↓ ↓ ↓
+        // // 隨機按鈕區
         // for (let el of but) {
         //     el.addEventListener('click', () => {
         //         // 隨機數值區間0~255
@@ -176,193 +177,54 @@
         //         // 抓取按鈕的 id
         //         let Bid = el.id
 
-        //         for (let el of range) {
-        //             el.addEventListener('input', () => {
-        //                 // 抓取 range 的 id
-        //                 let Rid = el.id
-        //                 // 抓取 range 的 value
-        //                 let RV = el.value
-        //                 console.log('原' + Rid, RV)
-        //                 if (Rid == Bid) {
-        //                     RV = `${R}`
-        //                     console.log(Rid, Bid, RV, `${R}`)
-
-        //                     for (let el of rangeValue) {
-        //                         // 抓取 rangeValue 的 id
-        //                         let rVid = el.id
-        //                         if (rVid == Rid) {
-        //                             el.innerText = RV
-        //                             console.log(rVid, Rid)
-        //                             console.log('rangeValue取代', el.innerText, RV)
-        //                         }
-        //                     }
-        //                 }
-        //             })
-        //         }
-        //     })
-        // }
-
-        // box.style.backgroundColor = 'rgb(255, 0, 0)'
-        // box.style.backgroundColor = `rgb(${})`
-
-
-
-
-
-
-
-        // for (let el of but) {
-        //     el.addEventListener('click', () => {
-        //         // 隨機數值區間0~255
-        //         let R = Math.floor(Math.random() * 256)
-        //         // 抓取按鈕的 id
-        //         let Bid = el.id
-        //         let Bcl = el.class
-        //         console.log(el)
-        //         if (Bid == 'r_red') {
-        //             r_red.value = R
-        //             console.log(r_red.value, R)
-        //         } else if (Bid == 'r_gre') {
-        //             r_gre.value = R
-        //             console.log(r_gre.value, R)
-        //         } else if (Bid == 'r_blu') {
-        //             r_blu.value = R
-        //             console.log(r_blu.value, R)
-        //         }
-
-
-
-        //         for (let el of range) {
-        //             el.addEventListener('input', () => {
-
-        //                 // 抓取拉桿的 id
-        //                 let Rid = el.id
-
-        //                 // 抓取拉桿的 value
-        //                 let V = el.value
-        //                 console.log(Rid)
-        //                 console.log(V, R)
-
-
-
-        //                 for (let el of rangeValue) {
-        //                     // 抓取數字的 id
-        //                     let rVid = el.id
-        //                     console.log(rVid)
-        //                     if (rVid == Rid) {
-        //                         el.innerText = V
-        //                         // } else if (rVid == Bid) {
-        //                         //     el.innerText = R
-        //                         //     console.log(el.innerText, R)
-        //                     }
-        //                 }
-        //             })
-        //         }
-        //     })
-        // }
-
-
-
-
-
-
-
-
-
-        // for (let el of range) {
-        //     el.addEventListener('input', (event) => {
-        //         // 抓取拉桿的數值
-        //         let V = event.target.value
-        //         console.log(event.target.id)
-
-        //         // 連動到數字顯示
         //         for (let el of rangeValue) {
-        //             if (event.target.id == el.id) {
-        //                 el.innerText = V
+        //             // 抓取 rangeValue 的 id
+        //             let rVid = el.id
+        //             if (rVid == Bid) {
+        //                 el.innerText = R
+        //                 console.log(rVid, Bid)
+        //                 console.log('rangeValue取代', rVid, Bid, el.innerText, R)
+
+        //                 for (let el of range) {
+        //                     // 抓取 range 的 id
+        //                     let Rid = el.id
+        //                     if (Rid == rVid) {
+        //                         el.value = R
+        //                         let r_R = r_red.value
+        //                         let g_R = r_gre.value
+        //                         let b_R = r_blu.value
+        //                         box.style.backgroundColor = `rgb(${r_R}, ${g_R}, ${b_R})`
+        //                         console.log(box.style.backgroundColor)
+        //                     }
+        //                 }
         //             }
         //         }
         //     })
         // }
 
 
+        // // 拉桿控制區
         // for (let el of range) {
         //     el.addEventListener('input', () => {
-
-        //         // 抓取拉桿的 id
+        //         // 抓取 range 的 id
         //         let Rid = el.id
+        //         // 抓取 range 的 value
+        //         let RV = el.value
+        //         console.log('原' + Rid, RV)
 
-        //         // 抓取拉桿的 value
-        //         let V = el.value
-        //         console.log(Rid)
-        //         console.log(V)
+        //         for (let el of rangeValue) {
+        //             // 抓取 rangeValue 的 id
+        //             let rVid = el.id
+        //             if (rVid == Rid) {
+        //                 el.innerText = RV
+        //                 console.log(rVid, Rid)
+        //                 console.log('rangeValue取代', el.innerText, RV)
 
-
-
-        //         for (let el of but) {
-        //             el.addEventListener('click', () => {
-        //                 // 隨機數值區間0~255
-        //                 let R = Math.floor(Math.random() * 256)
-        //                 console.log(R)
-        //                 const Bid = el.id
-
-        //             })
-        //         }
-
-
-
-        // for (let el of but) {
-        //     el.addEventListener('click', () => {
-        //         // but 的 id 數值
-        //         const Bid = el.id
-        //         // 隨機數值區間0~255
-        //         let R = Math.floor(Math.random() * 256)
-        //         console.log(R)
-        //         console.log(Bid)
-        //         if (Bid === 'r_red') {
-        //             r_red.value = R
-        //         } else if (Bid === 'r_gre') {
-        //             r_gre.value = R
-        //         } else if (Bid === 'r_blu') {
-        //             r_blu.value = R
-        //         }
-        //     })
-        // }
-
-
-
-        // 連動到數字顯示
-        // for (let el of rangeValue) {
-        //     // 抓取數字的 id
-        //     let rVid = el.id
-        //     console.log(rVid)
-        //     if (rVid == Rid) {
-        //         el.innerText = V
-        //         console.log(rVid, V)
-        //     } else if (rVid == Bid) {
-        //         el.innerText = V
-        //     }
-        // }
-
-
-        //     })
-        // }
-
-
-
-
-
-        // for (let el of but) {
-        //     el.addEventListener('click', () => {
-        //         // but 的 id 數值
-        //         let Bid = el.id
-        //         // 隨機數值區間0~255
-        //         let R = Math.floor(Math.random() * 256)
-        //         console.log(R)
-        //         console.log(Bid)
-        //         if (Bid == Rid) {
-        //             for (const element of range) {
-        //                 console.log(element.value)
-        //                 element.value = R
+        //                 let r_RV = r_red.value
+        //                 let g_RV = r_gre.value
+        //                 let b_RV = r_blu.value
+        //                 box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
+        //                 console.log(box.style.backgroundColor)
         //             }
         //         }
         //     })
@@ -371,37 +233,63 @@
 
 
 
+        // // 有錯誤 ↓ ↓ ↓ ↓ ↓
+        // // 隨機按鈕區
         // for (let el of but) {
         //     el.addEventListener('click', () => {
         //         // 隨機數值區間0~255
         //         let R = Math.floor(Math.random() * 256)
-        //         console.log(R)
-        //         if (el.id == event.target.id) {
-        //             console.log(el.id)
-        //             console.log(event.target.id)
-        //             input.value.innerHTML = R
+        //         console.log(el.value, R)
+        //         // 抓取按鈕的 id
+        //         let Bid = el.id
+
+        //         for (let el of rangeValue) {
+        //             // 抓取 rangeValue 的 id
+        //             let rVid = el.id
+        //             if (rVid == Bid) {
+        //                 el.innerText = R
+        //                 console.log(rVid, Bid)
+        //                 console.log('rangeValue取代', rVid, Bid, el.innerText, R)
+
+        //                 let r_R = r_red.value
+        //                 let g_R = r_gre.value
+        //                 let b_R = r_blu.value
+        //                 console.log(r_R, g_R, b_R)
+        //                 box.style.backgroundColor = `rgb(${r_R}, ${r_R}, ${r_R})`
+        //                 console.log(box.style.backgroundColor)
+        //             }
         //         }
         //     })
         // }
 
 
+        // // 拉桿控制區
+        // for (let el of range) {
+        //     el.addEventListener('input', () => {
+        //         // 抓取 range 的 id
+        //         let Rid = el.id
+        //         // 抓取 range 的 value
+        //         let RV = el.value
+        //         console.log('原' + Rid, RV)
 
-        // 驗證是否在區間數值↓
-        // for (let i = 0; i <= 255; i++) {
-        //     let R = Math.floor(Math.random() * 256)
-        //     console.log(R)
-        // }
+        //         for (let el of rangeValue) {
+        //             // 抓取 rangeValue 的 id
+        //             let rVid = el.id
+        //             if (rVid == Rid) {
+        //                 el.innerText = RV
+        //                 console.log(rVid, Rid)
+        //                 console.log('rangeValue取代', el.innerText, RV)
 
-        // for (let el of but) {
-        //     el.addEventListener('click', () => {
-        //         // 隨機數值區間0~255
-        //         let R = Math.floor(Math.random() * 256)
-        //         console.log(R)
+        //                 let r_RV = r_red.value
+        //                 let g_RV = r_gre.value
+        //                 let b_RV = r_blu.value
+        //                 console.log(r_RV, g_RV, b_RV)
+        //                 box.style.backgroundColor = `rgb(${r_RV}, ${g_RV}, ${b_RV})`
+        //                 console.log(box.style.backgroundColor)
+        //             }
+        //         }
         //     })
         // }
-
-
-
 
 
 
